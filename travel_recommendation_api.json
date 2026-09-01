@@ -47,6 +47,17 @@
             "description": "The financial hub with diverse culture, arts, and a vibrant nightlife."
           }
         ]
+      },
+      {
+        "id": 4,
+        "name": "Greece",
+        "cities": [
+          {
+            "name": "Athens, Greece",
+            "imageUrl": "enter_your_image_for_athens.jpg",
+            "description": "A colorful city filled with one of the longest surviving history, impressive architecture, and outdoor experiences."
+          }
+        ]
       }
     ],
     "temples": [

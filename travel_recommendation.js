@@ -1,28 +1,30 @@
 const home = document.getElementById("home");
-const aboutUs = document.getElementById("abouyUs");
+const aboutUs = document.getElementById("aboutUs");
 const btnSearch = document.getElementById('btnSearch');
-function searchCondition() {
+function searchDestination() {
 	const input = document.getElementById('destination').value.toLowerCase();
 	const resultDiv = document.getElementById('result');
 	resultDiv.innerHTML = '';
 
-	fetch('health_analysis.json')
+	fetch('travel_recommendation_api.json')
 	  .then(response => response.json())
 	  .then(data => {
-		const condition = data.conditions.find(item => item.name.toLowerCase() === input);
-		if (condition) {
-		  const symptoms = condition.symptoms.join(', ');
-		  const prevention = condition.prevention.join(', ');
-		  const treatment = condition.treatment;
+		const destination = data.destination.find(item => item.name.toLowerCase() === input);
+		if (destination) {
+		  const greece = destination.greece.join(', ');
+		  const japan = destination.japan.join(', ');
+		  const brazil = destination.brazil.join(', ');
+          const australia = destination.australia;
 
-          resultDiv.innerHTML += `<h2>${condition.name}</h2>`;
-		  resultDiv.innerHTML += `<img src="${condition.imagesrc}" alt="hjh">`;
+          resultDiv.innerHTML += `<h2>${destination.name}</h2>`;
+		  resultDiv.innerHTML += `<img src="${destination.imagesrc}" alt="hjh">`;
 
-          resultDiv.innerHTML += `<p><strong>Symptoms:</strong> ${symptoms}</p>`;
-		  resultDiv.innerHTML += `<p><strong>Prevention:</strong> ${prevention}</p>`;
-		  resultDiv.innerHTML += `<p><strong>Treatment:</strong> ${treatment}</p>`;
+          resultDiv.innerHTML += `<p><strong>Greece:</strong> ${greece}</p>`;
+		  resultDiv.innerHTML += `<p><strong>Japan:</strong> ${japan}</p>`;
+		  resultDiv.innerHTML += `<p><strong>Brazil:</strong> ${brazil}</p>`;
+          resultDiv.innerHTML += `<p><strong>Australia:</strong> ${australia}</p>`;
 		} else {
-		  resultDiv.innerHTML = 'Condition not found.';
+		  resultDiv.innerHTML = 'Destination not found.';
 		}
 	  })
 	  .catch(error => {
@@ -33,42 +35,20 @@ function searchCondition() {
     btnSearch.addEventListener('click', searchDestination);
 
 function generateReport() {
-    const numPatients = patients.length;
-    const conditionsCount = {
-        Diabetes: 0,
-        Thyroid: 0,
-        "High Blood Pressure": 0,
-    };
-    const genderConditionsCount = {
-		Male: {
-            Diabetes: 0,
-			Thyroid: 0,
-			"High Blood Pressure": 0,
-		},
-		Female: {
-		    Diabetes: 0,
-			Thyroid: 0,
-			"High Blood Pressure": 0,
-		},
+    const Destinations = destination.length;
+    const destination = {
+        Name: '',
+        Cities: '',
+        "Description": '',
 	};
 
-	for (const patient of patients) {
-		conditionsCount[patient.condition]++;
-		genderConditionsCount[patient.gender][patient.condition]++;
-	}
-
-	report.innerHTML = `Number of patients: ${numPatients}<br><br>`;
-	report.innerHTML += `Conditions Breakdown:<br>`;
-	for (const condition in conditionsCount) {
-		report.innerHTML += `${condition}: ${conditionsCount[condition]}<br>`;
-	}
-
-	report.innerHTML += `<br>Gender-Based Conditions:<br>`;
-	    for (const gender in genderConditionsCount) {
-		report.innerHTML += `${gender}:<br>`;
-		for (const condition in genderConditionsCount[gender]) {
-		    report.innerHTML += `&nbsp;&nbsp;${condition}: ${genderConditionsCount[gender][condition]}<br>`;
-		}
+	for (const destination of destination) {
+		citiesCount[destination.cities]++;
+    }
+	report.innerHTML = `Number of Destinations: ${numDestinations}<br><br>`;
+	report.innerHTML += `Destination Breakdown:<br>`;
+	for (const destination in destinationCount) {
+		report.innerHTML += `${destination}: ${destinationCount[destination]}<br>`;
 	}
 }
-addPatientButton.addEventListener("click", addPatient);
+addDestinationButton.addEventListener("click", addDestination);
